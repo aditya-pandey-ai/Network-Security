@@ -1,0 +1,29 @@
+[2025-08-29 20:48:29,240] 14 root - INFO - Initiate the data ingestion
+[2025-08-29 20:48:30,178] 41 root - INFO - Total documents in collection 'NetworkData': 11055
+[2025-08-29 20:48:31,904] 47 root - INFO - DataFrame created with shape: (11055, 32)
+[2025-08-29 20:48:31,907] 53 root - INFO - Final DataFrame shape after preprocessing: (11055, 31)
+[2025-08-29 20:48:31,939] 70 root - INFO - Exported 11055 rows to feature store
+[2025-08-29 20:48:31,939] 96 root - INFO - Splitting 11055 samples with test_size=0.2
+[2025-08-29 20:48:31,941] 104 root - INFO - Train set size: 8844, Test set size: 2211
+[2025-08-29 20:48:31,941] 105 root - INFO - Performed train test split on the dataframe
+[2025-08-29 20:48:31,941] 107 root - INFO - Exited split_data_as_train_test method of Data_Ingestion class
+[2025-08-29 20:48:31,941] 112 root - INFO - Exporting train and test file path
+[2025-08-29 20:48:31,972] 120 root - INFO - Exported train and test file path.
+[2025-08-29 20:48:31,974] 19 root - INFO - Initiate the data Validation
+[2025-08-29 20:48:31,982] 31 root - INFO - required number of columns:2
+[2025-08-29 20:48:31,982] 32 root - INFO - Data frame has columns :31
+[2025-08-29 20:48:31,982] 31 root - INFO - required number of columns:2
+[2025-08-29 20:48:31,982] 32 root - INFO - Data frame has columns :31
+[2025-08-29 20:48:31,983] 46 root - INFO - Required numerical columns: ['having_IP_Address', 'URL_Length', 'Shortining_Service', 'having_At_Symbol', 'double_slash_redirecting', 'Prefix_Suffix', 'having_Sub_Domain', 'SSLfinal_State', 'Domain_registeration_length', 'Favicon', 'port', 'HTTPS_token', 'Request_URL', 'URL_of_Anchor', 'Links_in_tags', 'SFH', 'Submitting_to_email', 'Abnormal_URL', 'Redirect', 'on_mouseover', 'RightClick', 'popUpWidnow', 'Iframe', 'age_of_domain', 'DNSRecord', 'web_traffic', 'Page_Rank', 'Google_Index', 'Links_pointing_to_page', 'Statistical_report', 'Result']
+[2025-08-29 20:48:31,983] 47 root - INFO - DataFrame numerical columns: ['having_IP_Address', 'URL_Length', 'Shortining_Service', 'having_At_Symbol', 'double_slash_redirecting', 'Prefix_Suffix', 'having_Sub_Domain', 'SSLfinal_State', 'Domain_registeration_length', 'Favicon', 'port', 'HTTPS_token', 'Request_URL', 'URL_of_Anchor', 'Links_in_tags', 'SFH', 'Submitting_to_email', 'Abnormal_URL', 'Redirect', 'on_mouseover', 'RightClick', 'popUpWidnow', 'Iframe', 'age_of_domain', 'DNSRecord', 'web_traffic', 'Page_Rank', 'Google_Index', 'Links_pointing_to_page', 'Statistical_report', 'Result']
+[2025-08-29 20:48:31,983] 46 root - INFO - Required numerical columns: ['having_IP_Address', 'URL_Length', 'Shortining_Service', 'having_At_Symbol', 'double_slash_redirecting', 'Prefix_Suffix', 'having_Sub_Domain', 'SSLfinal_State', 'Domain_registeration_length', 'Favicon', 'port', 'HTTPS_token', 'Request_URL', 'URL_of_Anchor', 'Links_in_tags', 'SFH', 'Submitting_to_email', 'Abnormal_URL', 'Redirect', 'on_mouseover', 'RightClick', 'popUpWidnow', 'Iframe', 'age_of_domain', 'DNSRecord', 'web_traffic', 'Page_Rank', 'Google_Index', 'Links_pointing_to_page', 'Statistical_report', 'Result']
+[2025-08-29 20:48:31,983] 47 root - INFO - DataFrame numerical columns: ['having_IP_Address', 'URL_Length', 'Shortining_Service', 'having_At_Symbol', 'double_slash_redirecting', 'Prefix_Suffix', 'having_Sub_Domain', 'SSLfinal_State', 'Domain_registeration_length', 'Favicon', 'port', 'HTTPS_token', 'Request_URL', 'URL_of_Anchor', 'Links_in_tags', 'SFH', 'Submitting_to_email', 'Abnormal_URL', 'Redirect', 'on_mouseover', 'RightClick', 'popUpWidnow', 'Iframe', 'age_of_domain', 'DNSRecord', 'web_traffic', 'Page_Rank', 'Google_Index', 'Links_pointing_to_page', 'Statistical_report', 'Result']
+[2025-08-29 20:48:32,072] 21 root - INFO - data Validation Completed
+[2025-08-29 20:48:32,072] 25 root - INFO - Initiate the data Transformation
+[2025-08-29 20:48:32,072] 46 root - INFO - Entered initiate_data_transformation method of DataTransformation class
+[2025-08-29 20:48:32,072] 48 root - INFO - Start data transformation
+[2025-08-29 20:48:32,081] 34 root - INFO - Entered get_data_transformer_object method of Transformation class
+[2025-08-29 20:48:32,081] 37 root - INFO - Initialise KNN Imputer with {'missing_values': nan, 'n_neighbors': 3, 'weights': 'uniform'}
+[2025-08-29 20:48:32,086] 44 root - INFO - Entered the save_object method of the MainUtils class
+[2025-08-29 20:48:32,090] 48 root - INFO - Successfully saved the save_object method of the MainUtils class
+[2025-08-29 20:48:32,090] 27 root - INFO - data Transformation Completed
