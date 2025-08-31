@@ -1,0 +1,6 @@
+[2025-09-01 00:55:42,725] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[2025-09-01 00:55:42,727] 107 dagshub - INFO - Accessing as aditya-pandey-ai
+[2025-09-01 00:55:43,191] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/repos/aditya-pandey-ai/Network-Security "HTTP/1.1 200 OK"
+[2025-09-01 00:55:43,567] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[2025-09-01 00:55:43,568] 107 dagshub - INFO - Initialized MLflow to track repo "aditya-pandey-ai/Network-Security"
+[2025-09-01 00:55:43,568] 107 dagshub - INFO - Repository aditya-pandey-ai/Network-Security initialized!

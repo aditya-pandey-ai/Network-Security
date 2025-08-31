@@ -1,6 +1,7 @@
 import os
 import sys
-
+from dotenv import load_dotenv
+load_dotenv()
 from networksecurity.exception.exception import NetworkSecurityException
 from networksecurity.logging.logger import logging
 
@@ -23,6 +24,13 @@ from sklearn.ensemble import (
 )
 from xgboost import XGBClassifier
 import mlflow
+import dagshub
+os.environ['MLFLOW_TRACKING_USERNAME'] = os.getenv('MLFLOW_TRACKING_USERNAME')
+os.environ['MLFLOW_TRACKING_PASSWORD'] = os.getenv('MLFLOW_TRACKING_PASSWORD')
+dagshub.init(repo_owner='aditya-pandey-ai', repo_name='Network-Security', mlflow=True)
+mlflow.set_tracking_uri('https://dagshub.com/aditya-pandey-ai/Network-Security.mlflow')
+
+
 
 class ModelTrainer:
     def __init__(self,model_trainer_config:ModelTrainerConfig,data_transformation_artifact:DataTransformationArtifact):
@@ -32,17 +40,24 @@ class ModelTrainer:
         except Exception as e:
             raise NetworkSecurityException(e,sys)
 
-    def track_mlflow(self,best_model,classificationmetric):
-        with mlflow.start_run():
-            f1_score = classificationmetric.f1_score
-            recall_score = classificationmetric.recall_score
-            precision_score = classificationmetric.precision_score
+    def track_mlflow(self, best_model, train_metric, test_metric):
+        try:
+            with mlflow.start_run():
+                # Log training metrics
+                mlflow.log_metric("train_f1_score", train_metric.f1_score)
+                mlflow.log_metric("train_recall_score", train_metric.recall_score)
+                mlflow.log_metric("train_precision_score", train_metric.precision_score)
 
-            mlflow.log_metric("f1_score", f1_score)
-            mlflow.log_metric("recall_score", recall_score)
-            mlflow.log_metric("precision_score", precision_score)
+                # Log testing metrics
+                mlflow.log_metric("test_f1_score", test_metric.f1_score)
+                mlflow.log_metric("test_recall_score", test_metric.recall_score)
+                mlflow.log_metric("test_precision_score", test_metric.precision_score)
 
-            mlflow.sklearn.log_model(best_model, "model")
+                # Log the model
+                #mlflow.sklearn.log_model(best_model, "model")
+        except Exception as e:
+            logging.warning(f"MLflow tracking failed: {e}")
+
     def train_model(self, x_train,y_train,x_test,y_test):
         models = {
             "Random Forest": RandomForestClassifier(verbose=1),
@@ -99,12 +114,10 @@ class ModelTrainer:
         classification_train_metric = get_classification_score(y_true=y_train,y_pred=y_train_pred)
 
         # Track with ML Flow
-        self.track_mlflow(best_model,classification_train_metric)
-
         y_test_pred = best_model.predict(x_test)
         classification_test_metric = get_classification_score(y_true=y_test,y_pred=y_test_pred)
 
-        self.track_mlflow(best_model,classification_test_metric)
+        self.track_mlflow(best_model, classification_train_metric, classification_test_metric)
 
         preprocessor = load_object(file_path=self.data_transformation_artifact.transformed_object_file_path)
 
@@ -112,7 +125,7 @@ class ModelTrainer:
         os.makedirs(model_dir_path, exist_ok=True)
 
         Network_Model = NetworkModel(preprocessor=preprocessor, model=best_model)
-        save_object(self.model_trainer_config.trained_model_file_path, obj=NetworkModel)
+        save_object(self.model_trainer_config.trained_model_file_path, obj=Network_Model)
         # model pusher
         save_object("final_model/model.pkl", best_model)
 
