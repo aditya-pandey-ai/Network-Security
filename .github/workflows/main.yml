@@ -78,12 +78,9 @@ jobs:
         run: |
           docker pull ${{ secrets.AWS_ECR_LOGIN_URI }}/${{ secrets.ECR_REPOSITORY_NAME }}:latest
 
-      - name: Stop and remove old container if exists
+      - name: Remove old container if exists
         run: |
-          if [ "$(docker ps -aq -f name=mltest)" ]; then
-            docker stop mltest || true
-            docker rm mltest || true
-          fi
+          docker rm -f networksecurity || true
 
       - name: Run Docker container
         run: |
