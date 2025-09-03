@@ -25,11 +25,23 @@ from sklearn.ensemble import (
 from xgboost import XGBClassifier
 import mlflow
 import dagshub
+
+# Ensure MLflow credentials are set
 os.environ['MLFLOW_TRACKING_USERNAME'] = os.getenv('MLFLOW_TRACKING_USERNAME')
 os.environ['MLFLOW_TRACKING_PASSWORD'] = os.getenv('MLFLOW_TRACKING_PASSWORD')
-dagshub.init(repo_owner='aditya-pandey-ai', repo_name='Network-Security', mlflow=True)
-mlflow.set_tracking_uri('https://dagshub.com/aditya-pandey-ai/Network-Security.mlflow')
 
+# Add DagsHub token for non-interactive auth
+dagshub.auth.add_app_token(os.getenv("DAGSHUB_TOKEN"))
+
+# Initialize DagsHub repo for MLflow tracking
+dagshub.init(
+    repo_owner=os.getenv("DAGSHUB_USERNAME"),
+    repo_name="Network-Security",
+    mlflow=True
+)
+
+# Explicitly set MLflow tracking URI
+mlflow.set_tracking_uri('https://dagshub.com/aditya-pandey-ai/Network-Security.mlflow')
 
 
 class ModelTrainer:
