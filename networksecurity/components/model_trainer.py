@@ -52,7 +52,7 @@ class ModelTrainer:
         except Exception as e:
             raise NetworkSecurityException(e,sys)
 
-    def track_mlflow(self, best_model, train_metric, test_metric):
+    def track_mlflow(self, best_model_name, train_metric, test_metric):
         try:
             with mlflow.start_run():
                 # Log training metrics
@@ -66,7 +66,7 @@ class ModelTrainer:
                 mlflow.log_metric("test_precision_score", test_metric.precision_score)
 
                 # Log the model
-                #mlflow.sklearn.log_model(best_model, "model")
+                mlflow.log_param("best_model_name", best_model_name)
         except Exception as e:
             logging.warning(f"MLflow tracking failed: {e}")
 
